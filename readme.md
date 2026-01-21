@@ -96,24 +96,6 @@
 
 ---
 
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| **UI Framework** | Flutter 3.x |
-| **State Management** | Riverpod 2.x + Freezed |
-| **Navigation** | GoRouter |
-| **DI** | get_it + injectable |
-| **Database** | Drift (SQLite) |
-| **Encryption** | libsodium |
-| **Native Bridge** | Dart FFI |
-| **Native Code** | C17/C++20 |
-| **Build** | CMake + Gradle |
-
----
-
-## Getting Started
-
 ### Requirements
 
 | Requirement | Specification |
@@ -123,83 +105,6 @@
 | Root | Magisk 24+ |
 | Adapter | RTL8812AU, MT7612U, AR9271 |
 
-### Installation
-
-```bash
-# Clone
-git clone https://github.com/user/airmobile.git && cd airmobile
-
-# Dependencies
-flutter pub get
-
-# Build native
-cd native && mkdir build && cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=$NDK/build/cmake/android.toolchain.cmake \
-      -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=android-26 ..
-make -j$(nproc)
-cd ../..
-
-# Build APK
-flutter build apk --release
-```
-
----
-
-## Development
-
-### Project Structure
-
-```
-lib/
-├── core/           # DI, exceptions, constants
-├── domain/         # Entities, use cases, interfaces
-├── data/           # Repositories, data sources
-├── presentation/   # Screens, widgets, providers
-├── native/         # FFI bindings
-└── main.dart
-
-native/
-├── include/        # Headers
-├── src/            # C/C++ implementation
-└── CMakeLists.txt
-```
-
-### Key Patterns
-
-**Result Type (Error Handling)**
-```dart
-sealed class Result<T> {}
-final class Success<T> extends Result<T> { final T data; }
-final class Failure<T> extends Result<T> { final AppException error; }
-```
-
-**Use Case Pattern**
-```dart
-class StartMonitorModeUseCase implements UseCase<String, String> {
-  Future<Result<String>> call(String interface) async { ... }
-}
-```
-
-**FFI Bridge**
-```dart
-final class AirmonBindings {
-  late final int Function(Pointer<Utf8>) startMonitor;
-  AirmonBindings(DynamicLibrary lib) {
-    startMonitor = lib.lookupFunction<...>('airmon_start');
-  }
-}
-```
-
----
-
-## Roadmap
-
-- [x] Architecture design
-- [ ] **Phase 1**: Foundation (Weeks 1-3)
-- [ ] **Phase 2**: Core tools (Weeks 4-7)
-- [ ] **Phase 3**: Attack modules (Weeks 8-10)
-- [ ] **Phase 4**: Cracking engine (Weeks 11-14)
-- [ ] **Phase 5**: Production polish (Weeks 15-16)
 
 ---
 
@@ -221,4 +126,5 @@ final class AirmonBindings {
 ---
 
 <p align="center"><strong>Built with ❤️ for security researchers</strong></p>
+
 
