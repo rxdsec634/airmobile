@@ -125,6 +125,7 @@
 
 ---
 
-<p align="center"><strong>Built with ❤️ for security researchers</strong></p>
+<p align="center"><strong>Built with ❤️ RXDSEC</strong></p>
+
 
 
